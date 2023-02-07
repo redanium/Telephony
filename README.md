@@ -7,10 +7,7 @@
         <img src="https://github.com/shounakmulay/telephony/actions/workflows/Telephony_CI.yml/badge.svg?branch=develop" /></a>
 </p>
 
-
-# Telephony
-
-## Thank you for checking out the Telephony plugin. Unfortunately, this plugin is no longer actively maintained.
+# Telephony_Reloaded 
 
 |:exclamation: This plugin currently only works on Android Platform|
 |------------------------------------------------------------------|
@@ -66,14 +63,41 @@ Add the following permission in your `AndroidManifest.xml`
 ```xml
 <uses-permission android:name="android.permission.SEND_SMS"/>
 ```
+#### Subscriptions
+List different subscriptions
+```dart
+List subscriptions = await = telephony.sims;
+//subscriptions = [
+//			{
+//		  	"simSlotIndex":"0",
+//                  	"number" : "012345678",
+//                  	"carrierName" : "carrier#0"
+//			},
+//
+//			{
+//		  	"simSlotIndex":"1",
+//                  	"number" : "120123458",
+//                  	"carrierName" : "carrier#1"
+//			}
+//		];
+```
 
 SMS can either be sent directly or via the default SMS app.
 
 #### Send SMS directly from your app:
+Using the default subscription :
 ```dart
 telephony.sendSms(
 	to: "1234567890",
 	message: "May the force be with you!"
+	);
+```
+If you want to send sms via different subscription :
+```dart
+telephony.sendSms(
+	to: "1234567890",
+	message: "May the force be with you!"
+	subscriptionId: 0
 	);
 ```
 If you want to listen to the status of the message being sent, provide `SmsSendStatusListener` to the `sendSms` function.
@@ -300,8 +324,11 @@ class _MyAppState extends State<MyApp> {
 
 
 ## Features
-
+ - [x] [Subscriptions]
+ 	- [x] list different subscriptions
  - [x] [Send SMS](#send-sms)
+ 	- [x] Default subscription
+	- [x] Diffrent subscription
  - [x] [Query SMS](#query-sms)
 	 - [x] Inbox
 	 - [x] Sent
